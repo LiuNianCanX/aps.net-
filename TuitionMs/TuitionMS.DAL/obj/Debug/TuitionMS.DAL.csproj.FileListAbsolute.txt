@@ -1,0 +1,12 @@
+D:\C++ArrayList\学费管理系统(web版)\TuitionMS.DAL\bin\Debug\TuitionMS.DAL.dll
+D:\C++ArrayList\学费管理系统(web版)\TuitionMS.DAL\bin\Debug\TuitionMS.DAL.pdb
+D:\C++ArrayList\学费管理系统(web版)\TuitionMS.DAL\obj\Debug\TuitionMS.DAL.csprojAssemblyReference.cache
+D:\C++ArrayList\学费管理系统(web版)\TuitionMS.DAL\obj\Debug\TuitionMS.DAL.csproj.CoreCompileInputs.cache
+D:\C++ArrayList\学费管理系统(web版)\TuitionMS.DAL\obj\Debug\TuitionMS.DAL.dll
+D:\C++ArrayList\学费管理系统(web版)\TuitionMS.DAL\obj\Debug\TuitionMS.DAL.pdb
+D:\C++ArrayList\TuitionMs\TuitionMS.DAL\bin\Debug\TuitionMS.DAL.dll.config
+D:\C++ArrayList\TuitionMs\TuitionMS.DAL\bin\Debug\TuitionMS.DAL.dll
+D:\C++ArrayList\TuitionMs\TuitionMS.DAL\bin\Debug\TuitionMS.DAL.pdb
+D:\C++ArrayList\TuitionMs\TuitionMS.DAL\obj\Debug\TuitionMS.DAL.csproj.CoreCompileInputs.cache
+D:\C++ArrayList\TuitionMs\TuitionMS.DAL\obj\Debug\TuitionMS.DAL.dll
+D:\C++ArrayList\TuitionMs\TuitionMS.DAL\obj\Debug\TuitionMS.DAL.pdb

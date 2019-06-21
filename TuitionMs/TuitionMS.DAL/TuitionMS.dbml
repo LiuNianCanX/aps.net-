@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="TuitionMs" Class="TuitionMSDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-CBSOUH4;Initial Catalog=TuitionMs;Integrated Security=True" SettingsObjectName="TuitionMS.DAL.Properties.Settings" SettingsPropertyName="TuitionMsConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Administrator" Member="Administrator">
+    <Type Name="Administrator">
+      <Column Name="adminNo" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="adminPwd" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="adminType" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="adminTel" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Notice" Member="Notice">
+    <Type Name="Notice">
+      <Column Name="notiObject" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="notiContent" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="notiTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Propose" Member="Propose">
+    <Type Name="Propose">
+      <Column Name="propObject" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="propContent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="propTime" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Class" Member="Class">
+    <Type Name="Class">
+      <Column Name="clasNo" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="specNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="clasName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="clasInstructor" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="clasNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Class_Students" Member="Students" ThisKey="clasNo" OtherKey="clasNo" Type="Students" />
+      <Association Name="Speciality_Class" Member="Speciality" ThisKey="specNo" OtherKey="specNo" Type="Speciality" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Department" Member="Department">
+    <Type Name="Department">
+      <Column Name="deptNo" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="deptName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Department_Speciality" Member="Speciality" ThisKey="deptNo" OtherKey="deptNo" Type="Speciality" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Speciality" Member="Speciality">
+    <Type Name="Speciality">
+      <Column Name="specNo" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="deptNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="specName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="specManager" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Association Name="Speciality_Class" Member="Class" ThisKey="specNo" OtherKey="specNo" Type="Class" />
+      <Association Name="Speciality_Tuition" Member="Tuition" ThisKey="specNo" OtherKey="specNo" Type="Tuition" />
+      <Association Name="Department_Speciality" Member="Department" ThisKey="deptNo" OtherKey="deptNo" Type="Department" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Students" Member="Students">
+    <Type Name="Students">
+      <Column Name="studNo" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="clasNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="studName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="studPwd" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="studBirth" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="studTel" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="studSex" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="studEmail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Students_StudTuition" Member="StudTuition" ThisKey="studNo" OtherKey="studNo" Type="StudTuition" />
+      <Association Name="Class_Students" Member="Class" ThisKey="clasNo" OtherKey="clasNo" Type="Class" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Term" Member="Term">
+    <Type Name="Term">
+      <Column Name="termNo" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="termName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Association Name="Term_Tuition" Member="Tuition" ThisKey="termNo" OtherKey="termNo" Type="Tuition" />
+      <Association Name="Term_StudTuition" Member="StudTuition" ThisKey="termNo" OtherKey="termNo" Type="StudTuition" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tuition" Member="Tuition">
+    <Type Name="Tuition">
+      <Column Name="termNo" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="specNo" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="tuition" Member="tuition1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="premiun" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="accom" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="book" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="other" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="total" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Term_Tuition" Member="Term" ThisKey="termNo" OtherKey="termNo" Type="Term" IsForeignKey="true" />
+      <Association Name="Speciality_Tuition" Member="Speciality" ThisKey="specNo" OtherKey="specNo" Type="Speciality" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudTuition" Member="StudTuition">
+    <Type Name="StudTuition">
+      <Column Name="termNo" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="studNo" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="sPremiun" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sAccom" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sBook" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sOther" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sTuiWaiver" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sLoans" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sRealPay" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sRealCharge" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sData" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="sTuition" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Students_StudTuition" Member="Students" ThisKey="studNo" OtherKey="studNo" Type="Students" IsForeignKey="true" />
+      <Association Name="Term_StudTuition" Member="Term" ThisKey="termNo" OtherKey="termNo" Type="Term" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Class_nopay_view" Member="Class_nopay_view">
+    <Type Name="Class_nopay_view">
+      <Column Name="班级" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="专业" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="学费欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="保险费欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="住宿费欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="书本费欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="其他费欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="减免欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="贷款欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="总人数" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Class_statistics_view" Member="Class_statistics_view">
+    <Type Name="Class_statistics_view">
+      <Column Name="班级" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="学费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="保险费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="住宿费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="书本费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="其他费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="减免总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="贷款总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="实缴总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="实收总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="总人数" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Department_nopay_view" Member="Department_nopay_view">
+    <Type Name="Department_nopay_view">
+      <Column Name="学院" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="学费欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="保险费欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="住宿费欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="书本费欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="其他费欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="减免欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="贷款欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="总人数" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Department_statistics_view" Member="Department_statistics_view">
+    <Type Name="Department_statistics_view">
+      <Column Name="学院" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="学费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="保险费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="住宿费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="书本费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="其他费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="减免总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="贷款总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="实缴总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="实收总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="总人数" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Speciality_statistics_view" Member="Speciality_statistics_view">
+    <Type Name="Speciality_statistics_view">
+      <Column Name="专业" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="学费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="保险费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="住宿费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="书本费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="其他费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="减免总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="贷款总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="实缴总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="实收总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="总人数" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Student_infor_view" Member="Student_infor_view">
+    <Type Name="Student_infor_view">
+      <Column Name="studNo" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="studName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="studSex" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="studTel" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="studBirth" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="deptName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="specName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="clasName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.studentPayInformation" Member="studentPayInformation">
+    <Type Name="studentPayInformation">
+      <Column Name="Tuition" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Premiun" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Accom" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Book" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Other" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sTuiWaiver" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sLoans" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Term_statistics_view" Member="Term_statistics_view">
+    <Type Name="Term_statistics_view">
+      <Column Name="学年" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="学费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="保险费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="住宿费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="书本费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="其他费总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="减免总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="贷款总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="实缴总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="实收总和" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="总人数" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TuiTion_seacher_view" Member="TuiTion_seacher_view">
+    <Type Name="TuiTion_seacher_view">
+      <Column Name="院系" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="专业" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="班级" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="学号" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="学年号" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="姓名" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="学费" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="保险费" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="住宿费" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="书本费" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="其他费" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="学费减免" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="贷款" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="实缴费" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="实收费" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="缴费日期" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Speciality_nopay_view" Member="Speciality_nopay_view">
+    <Type Name="Speciality_nopay_view">
+      <Column Name="专业" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="学院" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="学费欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="保险费欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="住宿费欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="书本费欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="其他费欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="减免欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="贷款欠费总额" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="总人数" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TuiTion_seacher_view_change" Member="TuiTion_seacher_view_change">
+    <Type Name="TuiTion_seacher_view_change">
+      <Column Name="学院" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="专业" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="班级" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="学号" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="学年号" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="姓名" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="学费" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="保险费" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="住宿费" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="书本费" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="其他费" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="学费减免" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="贷款" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="实缴费" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="实收费" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="缴费日期" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
